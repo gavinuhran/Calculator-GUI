@@ -27,7 +27,7 @@ class Calculator(Frame):
         if char == 'CE':
             self.totalTextFromUser = ''
         else:
-            self.totalTextFromUser += char
+            self.totalTextFromUser += str(char)
         if len(self.totalTextFromUser) > 25:
             end = len(self.totalTextFromUser)
             start = end - 25
@@ -79,7 +79,7 @@ class Calculator(Frame):
         self.multiplyButton.grid(row=3, column=3)
 
     def multiply(self):
-        self.updateDisplay('x')
+        self.updateDisplay('*')
 
     def createDivisionButton(self):
         self.divisionButton = Button(self.root, text="÷", image=self.pixelVirtual, width=50, height=50, compound="c")
@@ -97,8 +97,10 @@ class Calculator(Frame):
         self.squareRootButton.grid(row=1, column=2)
 
     def squareRoot(self):
-        userNumber = float(self.totalTextFromUser)
-        output = '{:.6f}'.format(math.sqrt(userNumber))
+        if self.totalTextFromUser.replace('.', '', 1).isdigit():
+            output = '{:.6f}'.format(math.sqrt(float(self.totalTextFromUser)))
+        else:
+            output = 'ERROR'
         self.updateDisplay('CE')
         self.updateDisplay(output)
 
@@ -131,9 +133,76 @@ class Calculator(Frame):
 
     def createCalculateButton(self):
         self.calculateButton = Button(self.root, text="=", image=self.pixelVirtual, width=50, height=50, compound="c")
-        #self.Button["command"] = self.calculate
+        self.calculateButton["command"] = self.calculate
         self.calculateButton["font"] = self.myFont
         self.calculateButton.grid(row=5, column=2)
+
+    def calculate(self):
+        response = self.calculateProcess(self.totalTextFromUser)
+        self.updateDisplay('CE')
+        self.updateDisplay(response)
+
+    def calculateProcess(self, userInput):
+        operationIndex = self.findOperation(userInput)
+        operation = userInput[operationIndex]
+
+        leftSide = userInput[:operationIndex]
+        rightSide = userInput[operationIndex+1:]
+
+        leftSideIsNum = self.checkIfNum(leftSide)
+        rightSideIsNum = self.checkIfNum(rightSide)
+
+        if not leftSideIsNum:
+            leftSide = self.stripOuterParenthesis(leftSide)
+            leftSide = self.calculateProcess(leftSide)
+
+        if not rightSideIsNum:
+            rightSide = self.stripOuterParenthesis(rightSide)
+            rightSide = self.calculateProcess(rightSide)
+
+        leftSide = float(leftSide)
+        rightSide = float(rightSide)
+
+        return self.performOperation(leftSide, rightSide, operation)
+
+    def findOperation(self, userInput):
+        numOpenParenthesis = 0
+        for i in range(len(userInput)):
+            char = userInput[i]
+            if char == '(':
+                numOpenParenthesis += 1
+            elif char == ')':
+                numOpenParenthesis -= 1
+            if (char == '+' or char == '-' or char == '*' or char == '/') and numOpenParenthesis == 0:
+                return i
+
+    def checkIfNum(self, userInput):
+        return userInput.replace('.', '', 1).isdigit()
+
+    def stripOuterParenthesis(self, userInput):
+        firstCharIsParenthesis = userInput[0] == '('
+        numOpenParenthesis = 0
+        for i in range(len(userInput)-1):
+            char = userInput[i]
+            if char == '(':
+                numOpenParenthesis += 1
+            elif char == ')':
+                numOpenParenthesis -= 1
+        lastCharIsParenthesis = userInput[len(userInput)-1] == ')'
+        if (firstCharIsParenthesis) and (numOpenParenthesis == 1) and (lastCharIsParenthesis):
+            return userInput[1:len(userInput)-1]
+        else:
+            return userInput
+
+    def performOperation(self, leftSide, rightSide, operation):
+        if operation == '+':
+            return leftSide + rightSide
+        elif operation == '-':
+            return leftSide - rightSide
+        elif operation == '*':
+            return leftSide * rightSide
+        else:
+            return leftSide / rightSide
 
     def createDigits(self):
         self.createZeroButton()
