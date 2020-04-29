@@ -142,54 +142,62 @@ class Calculator(Frame):
         self.updateDisplay('CE')
         self.updateDisplay(response)
 
-    def calculateProcess(self, userInput):
+    def calculateProcess(self, userString):
+        userInput = self.stripOuterParenthesis(userString)
         operationIndex = self.findOperation(userInput)
-        operation = userInput[operationIndex]
+        if not self.checkIfNum(operationIndex):
+            return 'ERROR'
+        else:
+            operation = userInput[operationIndex]
 
-        leftSide = userInput[:operationIndex]
-        rightSide = userInput[operationIndex+1:]
+            leftSide = self.stripOuterParenthesis(userInput[:operationIndex])
+            rightSide = self.stripOuterParenthesis(userInput[operationIndex+1:])
 
-        leftSideIsNum = self.checkIfNum(leftSide)
-        rightSideIsNum = self.checkIfNum(rightSide)
+            if not self.checkIfNum(leftSide):
+                leftSide = self.calculateProcess(leftSide)
 
-        if not leftSideIsNum:
-            leftSide = self.stripOuterParenthesis(leftSide)
-            leftSide = self.calculateProcess(leftSide)
+            if not self.checkIfNum(rightSide):
+                rightSide = self.calculateProcess(rightSide)
 
-        if not rightSideIsNum:
-            rightSide = self.stripOuterParenthesis(rightSide)
-            rightSide = self.calculateProcess(rightSide)
+            leftSide = float(leftSide)
+            rightSide = float(rightSide)
 
-        leftSide = float(leftSide)
-        rightSide = float(rightSide)
+            return self.performOperation(leftSide, rightSide, operation)
 
-        return self.performOperation(leftSide, rightSide, operation)
-
-    def findOperation(self, userInput):
-        numOpenParenthesis = 0
-        for i in range(len(userInput)):
-            char = userInput[i]
-            if char == '(':
-                numOpenParenthesis += 1
-            elif char == ')':
-                numOpenParenthesis -= 1
-            if (char == '+' or char == '-' or char == '*' or char == '/') and numOpenParenthesis == 0:
-                return i
-
-    def checkIfNum(self, userInput):
-        return userInput.replace('.', '', 1).isdigit()
-
-    def stripOuterParenthesis(self, userInput):
+    def checkIfOuterParenthesis(self, userInput):
         firstCharIsParenthesis = userInput[0] == '('
         numOpenParenthesis = 0
         for i in range(len(userInput)-1):
             char = userInput[i]
-            if char == '(':
+            if char ==')' and numOpenParenthesis == 1:
+                return False
+            elif char == '(':
                 numOpenParenthesis += 1
             elif char == ')':
                 numOpenParenthesis -= 1
         lastCharIsParenthesis = userInput[len(userInput)-1] == ')'
-        if (firstCharIsParenthesis) and (numOpenParenthesis == 1) and (lastCharIsParenthesis):
+        return (firstCharIsParenthesis) and (numOpenParenthesis == 1) and (lastCharIsParenthesis)
+
+    def findOperation(self, userInput):
+        for iteration in range(2):
+            numOpenParenthesis = 0
+            for i in range(len(userInput)):
+                char = userInput[i]
+                if char == '(':
+                    numOpenParenthesis += 1
+                elif char == ')':
+                    numOpenParenthesis -= 1
+                else:
+                    if (char == '+' or char == '-') and iteration == 0 and numOpenParenthesis == 0:
+                        return i
+                    if (char == '*' or char == '-') and iteration == 1 and numOpenParenthesis == 0:
+                        return i
+
+    def checkIfNum(self, userInput):
+        return str(userInput).replace('.', '', 1).isdigit()
+
+    def stripOuterParenthesis(self, userInput):
+        if self.checkIfOuterParenthesis(userInput):
             return userInput[1:len(userInput)-1]
         else:
             return userInput
@@ -315,7 +323,5 @@ class Calculator(Frame):
 
     def addDecimal(self):
         self.updateDisplay('.')
-
-    # CALCULATE BUTTON DOES NOT HAVE A FUNCTION CALL
 
 app=Calculator()
