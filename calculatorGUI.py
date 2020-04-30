@@ -5,7 +5,9 @@ import math
 class Calculator(Frame):
     def __init__(self):
         self.root = Tk()
-        self.root.geometry("231x315")
+        self.root.title('Calculator')
+        self.root.geometry("235x320")
+        self.root.resizable(0,0)
         self.createWidgets()
         self.root.mainloop()
 
@@ -55,7 +57,7 @@ class Calculator(Frame):
 
 
     def createAddButton(self):
-        self.addButton = Button(self.root, text="+", image=self.pixelVirtual, width=50, height=50, compound="c")
+        self.addButton = Button(self.root, text="+", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.addButton["command"] = self.add
         self.addButton["font"] = self.myFont
         self.addButton.grid(row=5, column=3)
@@ -64,7 +66,7 @@ class Calculator(Frame):
         self.updateDisplay('+')
 
     def createSubtractButton(self):
-        self.subtractButton = Button(self.root, text="-", image=self.pixelVirtual, width=50, height=50, compound="c")
+        self.subtractButton = Button(self.root, text="-", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.subtractButton["command"] = self.subtract
         self.subtractButton["font"] = self.myFont
         self.subtractButton.grid(row=4, column=3)
@@ -73,7 +75,7 @@ class Calculator(Frame):
         self.updateDisplay('-')
 
     def createMultiplyButton(self):
-        self.multiplyButton = Button(self.root, text="x", image=self.pixelVirtual, width=50, height=50, compound="c")
+        self.multiplyButton = Button(self.root, text="x", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.multiplyButton["command"] = self.multiply
         self.multiplyButton["font"] = self.myFont
         self.multiplyButton.grid(row=3, column=3)
@@ -82,7 +84,7 @@ class Calculator(Frame):
         self.updateDisplay('*')
 
     def createDivisionButton(self):
-        self.divisionButton = Button(self.root, text="÷", image=self.pixelVirtual, width=50, height=50, compound="c")
+        self.divisionButton = Button(self.root, text="÷", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.divisionButton["command"] = self.divide
         self.divisionButton["font"] = self.myFont
         self.divisionButton.grid(row=2, column=3)
@@ -91,7 +93,7 @@ class Calculator(Frame):
         self.updateDisplay('/')
 
     def createSquareRootButton(self):
-        self.squareRootButton = Button(self.root, text="√", image=self.pixelVirtual, width=50, height=50, compound="c")
+        self.squareRootButton = Button(self.root, text="√", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.squareRootButton["command"] = self.squareRoot
         self.squareRootButton["font"] = self.myFont
         self.squareRootButton.grid(row=1, column=2)
@@ -105,7 +107,7 @@ class Calculator(Frame):
         self.updateDisplay(output)
 
     def createLeftParenthesisButton(self):
-        self.leftParenthesisButton = Button(self.root, text="(", image=self.pixelVirtual, width=50, height=50, compound="c")
+        self.leftParenthesisButton = Button(self.root, text="(", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.leftParenthesisButton["command"] = self.leftParenthesis
         self.leftParenthesisButton["font"] = self.myFont
         self.leftParenthesisButton.grid(row=1, column=0)
@@ -114,7 +116,7 @@ class Calculator(Frame):
         self.updateDisplay('(')
 
     def createRightParenthesisButton(self):
-        self.rightParenthesisButton = Button(self.root, text=")", image=self.pixelVirtual, width=50, height=50, compound="c")
+        self.rightParenthesisButton = Button(self.root, text=")", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.rightParenthesisButton["command"] = self.rightParenthesis
         self.rightParenthesisButton["font"] = self.myFont
         self.rightParenthesisButton.grid(row=1, column=1)
@@ -123,7 +125,7 @@ class Calculator(Frame):
         self.updateDisplay(')')
 
     def createClearButton(self):
-        self.clearButton = Button(self.root, text="CE", image=self.pixelVirtual, width=50, height=50, compound="c")
+        self.clearButton = Button(self.root, text="CE", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.clearButton["command"] = self.clear
         self.clearButton["font"] = self.myFont
         self.clearButton.grid(row=1, column=3)
@@ -132,7 +134,7 @@ class Calculator(Frame):
         self.updateDisplay('CE')
 
     def createCalculateButton(self):
-        self.calculateButton = Button(self.root, text="=", image=self.pixelVirtual, width=50, height=50, compound="c")
+        self.calculateButton = Button(self.root, text="=", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.calculateButton["command"] = self.calculate
         self.calculateButton["font"] = self.myFont
         self.calculateButton.grid(row=5, column=2)
@@ -226,7 +228,7 @@ class Calculator(Frame):
         self.createDecimalButton()
 
     def createZeroButton(self):
-        self.zeroButton = Button(self.root, text="0", image=self.pixelVirtual, width=50, height=50, compound="c")
+        self.zeroButton = Button(self.root, text="0", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.zeroButton["command"] = self.addZero
         self.zeroButton["font"] = self.myFont
         self.zeroButton.grid(row=5, column=0)
@@ -235,7 +237,7 @@ class Calculator(Frame):
         self.updateDisplay('0')
 
     def createOneButton(self):
-        self.oneButton = Button(self.root, text="1", image=self.pixelVirtual, width=50, height=50, compound="c")
+        self.oneButton = Button(self.root, text="1", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.oneButton["command"] = self.addOne
         self.oneButton["font"] = self.myFont
         self.oneButton.grid(row=4, column=0)
@@ -244,7 +246,7 @@ class Calculator(Frame):
         self.updateDisplay('1')
 
     def createTwoButton(self):
-        self.twoButton = Button(self.root, text="2", image=self.pixelVirtual, width=50, height=50, compound="c")
+        self.twoButton = Button(self.root, text="2", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.twoButton["command"] = self.addTwo
         self.twoButton["font"] = self.myFont
         self.twoButton.grid(row=4, column=1)
@@ -253,7 +255,7 @@ class Calculator(Frame):
         self.updateDisplay('2')
 
     def createThreeButton(self):
-        self.threeButton = Button(self.root, text="3", image=self.pixelVirtual, width=50, height=50, compound="c")
+        self.threeButton = Button(self.root, text="3", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.threeButton["command"] = self.addThree
         self.threeButton["font"] = self.myFont
         self.threeButton.grid(row=4, column=2)
@@ -262,7 +264,7 @@ class Calculator(Frame):
         self.updateDisplay('3')
 
     def createFourButton(self):
-        self.fourButton = Button(self.root, text="4", image=self.pixelVirtual, width=50, height=50, compound="c")
+        self.fourButton = Button(self.root, text="4", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.fourButton["command"] = self.addFour
         self.fourButton["font"] = self.myFont
         self.fourButton.grid(row=3, column=0)
@@ -271,7 +273,7 @@ class Calculator(Frame):
         self.updateDisplay('4')
 
     def createFiveButton(self):
-        self.fiveButton = Button(self.root, text="5", image=self.pixelVirtual, width=50, height=50, compound="c")
+        self.fiveButton = Button(self.root, text="5", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.fiveButton["command"] = self.addFive
         self.fiveButton["font"] = self.myFont
         self.fiveButton.grid(row=3, column=1)
@@ -280,7 +282,7 @@ class Calculator(Frame):
         self.updateDisplay('5')
 
     def createSixButton(self):
-        self.sixButton = Button(self.root, text="6", image=self.pixelVirtual, width=50, height=50, compound="c")
+        self.sixButton = Button(self.root, text="6", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.sixButton["command"] = self.addSix
         self.sixButton["font"] = self.myFont
         self.sixButton.grid(row=3, column=2)
@@ -289,7 +291,7 @@ class Calculator(Frame):
         self.updateDisplay('6')
 
     def createSevenButton(self):
-        self.sevenButton = Button(self.root, text="7", image=self.pixelVirtual, width=50, height=50, compound="c")
+        self.sevenButton = Button(self.root, text="7", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.sevenButton["command"] = self.addSeven
         self.sevenButton["font"] = self.myFont
         self.sevenButton.grid(row=2, column=0)
@@ -298,7 +300,7 @@ class Calculator(Frame):
         self.updateDisplay('7')
 
     def createEightButton(self):
-        self.eightButton = Button(self.root, text="8", image=self.pixelVirtual, width=50, height=50, compound="c")
+        self.eightButton = Button(self.root, text="8", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.eightButton["command"] = self.addEight
         self.eightButton["font"] = self.myFont
         self.eightButton.grid(row=2, column=1)
@@ -307,7 +309,7 @@ class Calculator(Frame):
         self.updateDisplay('8')
 
     def createNineButton(self):
-        self.nineButton = Button(self.root, text="9", image=self.pixelVirtual, width=50, height=50, compound="c")
+        self.nineButton = Button(self.root, text="9", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.nineButton["command"] = self.addNine
         self.nineButton["font"] = self.myFont
         self.nineButton.grid(row=2, column=2)
@@ -316,7 +318,7 @@ class Calculator(Frame):
         self.updateDisplay('9')
 
     def createDecimalButton(self):
-        self.decimalButton = Button(self.root, text=".", image=self.pixelVirtual, width=50, height=50, compound="c")
+        self.decimalButton = Button(self.root, text=".", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.decimalButton["command"] = self.addDecimal
         self.decimalButton["font"] = self.myFont
         self.decimalButton.grid(row=5, column=1)
