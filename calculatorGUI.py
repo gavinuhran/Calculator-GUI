@@ -45,6 +45,8 @@ class Calculator(Frame):
         self.createDigits()
 
     def createOperations(self):
+        self.operationBGColor = '#84C8FF'
+        self.operationFontColor = '#FFFFFF'
         self.createAddButton()
         self.createSubtractButton()
         self.createMultiplyButton()
@@ -60,6 +62,8 @@ class Calculator(Frame):
         self.addButton = Button(self.root, text="+", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.addButton["command"] = self.add
         self.addButton["font"] = self.myFont
+        self.addButton['bg'] = self.operationBGColor
+        self.addButton['fg'] = '#FFFFFF'
         self.addButton.grid(row=5, column=3)
 
     def add(self):
@@ -69,6 +73,8 @@ class Calculator(Frame):
         self.subtractButton = Button(self.root, text="-", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.subtractButton["command"] = self.subtract
         self.subtractButton["font"] = self.myFont
+        self.subtractButton['bg'] = self.operationBGColor
+        self.subtractButton['fg'] = '#FFFFFF'
         self.subtractButton.grid(row=4, column=3)
 
     def subtract(self):
@@ -78,6 +84,8 @@ class Calculator(Frame):
         self.multiplyButton = Button(self.root, text="x", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.multiplyButton["command"] = self.multiply
         self.multiplyButton["font"] = self.myFont
+        self.multiplyButton['bg'] = self.operationBGColor
+        self.multiplyButton['fg'] = '#FFFFFF'
         self.multiplyButton.grid(row=3, column=3)
 
     def multiply(self):
@@ -87,6 +95,8 @@ class Calculator(Frame):
         self.divisionButton = Button(self.root, text="÷", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.divisionButton["command"] = self.divide
         self.divisionButton["font"] = self.myFont
+        self.divisionButton['bg'] = self.operationBGColor
+        self.divisionButton['fg'] = '#FFFFFF'
         self.divisionButton.grid(row=2, column=3)
 
     def divide(self):
@@ -96,6 +106,8 @@ class Calculator(Frame):
         self.squareRootButton = Button(self.root, text="√", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.squareRootButton["command"] = self.squareRoot
         self.squareRootButton["font"] = self.myFont
+        self.squareRootButton['bg'] = self.operationBGColor
+        self.squareRootButton['fg'] = '#FFFFFF'
         self.squareRootButton.grid(row=1, column=2)
 
     def squareRoot(self):
@@ -110,6 +122,8 @@ class Calculator(Frame):
         self.leftParenthesisButton = Button(self.root, text="(", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.leftParenthesisButton["command"] = self.leftParenthesis
         self.leftParenthesisButton["font"] = self.myFont
+        self.leftParenthesisButton['bg'] = self.operationBGColor
+        self.leftParenthesisButton['fg'] = '#FFFFFF'
         self.leftParenthesisButton.grid(row=1, column=0)
 
     def leftParenthesis(self):
@@ -119,6 +133,8 @@ class Calculator(Frame):
         self.rightParenthesisButton = Button(self.root, text=")", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.rightParenthesisButton["command"] = self.rightParenthesis
         self.rightParenthesisButton["font"] = self.myFont
+        self.rightParenthesisButton['bg'] = self.operationBGColor
+        self.rightParenthesisButton['fg'] = '#FFFFFF'
         self.rightParenthesisButton.grid(row=1, column=1)
 
     def rightParenthesis(self):
@@ -128,6 +144,8 @@ class Calculator(Frame):
         self.clearButton = Button(self.root, text="CE", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.clearButton["command"] = self.clear
         self.clearButton["font"] = self.myFont
+        self.clearButton["bg"] = '#FF7575'
+        self.clearButton['fg'] = '#FFFFFF'
         self.clearButton.grid(row=1, column=3)
 
     def clear(self):
@@ -137,6 +155,8 @@ class Calculator(Frame):
         self.calculateButton = Button(self.root, text="=", image=self.pixelVirtual, width=51, height=51, compound="c")
         self.calculateButton["command"] = self.calculate
         self.calculateButton["font"] = self.myFont
+        self.calculateButton["bg"] = '#FF7575'
+        self.calculateButton['fg'] = '#FFFFFF'
         self.calculateButton.grid(row=5, column=2)
 
     def calculate(self):
