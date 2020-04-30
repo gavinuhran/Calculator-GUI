@@ -9,8 +9,8 @@ def calculate(userString):
         leftSide = stripOuterParenthesis(userInput[:operationIndex])
         rightSide = stripOuterParenthesis(userInput[operationIndex+1:])
 
-        leftSideIsNum = checkIfNum(leftSide)
-        rightSideIsNum = checkIfNum(rightSide)
+        leftSideIsNum, leftSideIsNegative = checkIfNum(leftSide)
+        rightSideIsNum, rightSideIsNegative = checkIfNum(rightSide)
 
         if not leftSideIsNum:
             leftSide = calculate(leftSide)
@@ -18,8 +18,15 @@ def calculate(userString):
         if not rightSideIsNum:
             rightSide = calculate(rightSide)
 
-        leftSide = float(leftSide)
-        rightSide = float(rightSide)
+        if leftSideIsNegative:
+            leftSide = -1.0 * float(leftSide[1:])
+        else:
+            leftSide = float(leftSide)
+        
+        if rightSideIsNegative:
+            rightSide = -1.0 * float(rightSide[1:])
+        else:
+            rightSide = float(rightSide)
 
         return performOperation(leftSide, rightSide, operation)
 
@@ -47,14 +54,20 @@ def findOperation(userInput):
             elif char == ')':
                 numOpenParenthesis -= 1
             else:
-                if (char == '+' or char == '-') and iteration == 0 and numOpenParenthesis == 0:
+                if (char == '+' or (char == '-' and (not i == 0))) and iteration == 0 and numOpenParenthesis == 0:
                     return i
-                if (char == '*' or char == '-') and iteration == 1 and numOpenParenthesis == 0:
+                if (char == '*' or char == '/') and iteration == 1 and numOpenParenthesis == 0:
                     return i
+    
         
 
 def checkIfNum(userInput):
-    return str(userInput).replace('.', '', 1).isdigit()
+    if str(userInput).replace('.', '', 1).replace('-', '', 1).isdigit() and str(userInput)[0] == '-':
+        return True, True
+    elif str(userInput).replace('.', '', 1).isdigit():
+        return True, False
+    else:
+        return False, False
 
 def stripOuterParenthesis(userInput):
     if checkIfOuterParenthesis(userInput):
@@ -74,5 +87,5 @@ def performOperation(leftSide, rightSide, operation):
 
 
 
-userInput = '(7)+(3)'
+userInput = '-3*6''
 print(calculate(userInput))

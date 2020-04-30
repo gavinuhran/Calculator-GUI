@@ -175,14 +175,24 @@ class Calculator(Frame):
             leftSide = self.stripOuterParenthesis(userInput[:operationIndex])
             rightSide = self.stripOuterParenthesis(userInput[operationIndex+1:])
 
-            if not self.checkIfNum(leftSide):
+            leftSideIsNum, leftSideIsNegative = self.checkIfNum(leftSide)
+            rightSideIsNum, rightSideIsNegative = self.checkIfNum(rightSide)
+
+            if not leftSideIsNum:
                 leftSide = self.calculateProcess(leftSide)
 
-            if not self.checkIfNum(rightSide):
+            if not rightSideIsNum:
                 rightSide = self.calculateProcess(rightSide)
 
-            leftSide = float(leftSide)
-            rightSide = float(rightSide)
+            if leftSideIsNegative:
+                leftSide = -1.0 * float(leftSide[1:])
+            else:
+                leftSide = float(leftSide)
+            
+            if rightSideIsNegative:
+                rightSide = -1.0 * float(rightSide[1:])
+            else:
+                rightSide = float(rightSide)
 
             return self.performOperation(leftSide, rightSide, operation)
 
@@ -210,13 +220,18 @@ class Calculator(Frame):
                 elif char == ')':
                     numOpenParenthesis -= 1
                 else:
-                    if (char == '+' or char == '-') and iteration == 0 and numOpenParenthesis == 0:
+                    if (char == '+' or (char == '-' and (not i == 0))) and iteration == 0 and numOpenParenthesis == 0:
                         return i
-                    if (char == '*' or char == '-') and iteration == 1 and numOpenParenthesis == 0:
+                    if (char == '*' or char == '/') and iteration == 1 and numOpenParenthesis == 0:
                         return i
 
     def checkIfNum(self, userInput):
-        return str(userInput).replace('.', '', 1).isdigit()
+        if str(userInput).replace('.', '', 1).replace('-', '', 1).isdigit() and str(userInput)[0] == '-':
+            return True, True
+        elif str(userInput).replace('.', '', 1).isdigit():
+            return True, False
+        else:
+            return False, False
 
     def stripOuterParenthesis(self, userInput):
         if self.checkIfOuterParenthesis(userInput):

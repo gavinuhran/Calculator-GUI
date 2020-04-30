@@ -12,6 +12,9 @@ Calculator GUI no longer requires a Python3 path on your device to run the progr
 ### Updates to GUI
 The calculator has an updated look! Changes in background and font color of the 'operation' buttons gives Calculator GUI a sleek design! The changes in colors are designed to help a user identify the buttons they seek in less time.
 
+### Patched Errors with Negative Numbers
+Reported errors from negative numbers revealed that the calculator's functionality to handle inputs containing negative numbers was not complete. This update contains a patch that allows users to receive the correct response when inputting negative numbers into their equation.
+
 ## Previous Updates
 ### April 28, 2020
 #### Added Order of Operations (PMDAS)
