@@ -2,7 +2,7 @@
 # Created by Gavin Uhran
 
 ## Instructions of Use
-### Download the 'calculatorGUI.py' and run the file using Python3
+### Download the Program's Contents and Run 'calculatorGUI.exe' located in 'dist'
 Buttons on the calculator serve the purpose of the typical 4-function calculator. Enter an equation using the built-in buttons, then press '=' to calculate the equation. 
 
 ## Most recent update: April 29, 2020
